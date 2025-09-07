@@ -1,2 +1,4 @@
 # Task
-I solved my all tasks.
+COLLECTION OF SOLVED PROGRAMING AND PRACTICE TASKS
+
+
