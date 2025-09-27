@@ -1,0 +1,312 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.43 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| nit                |
+| performance_schema |
+| sys                |
+| testdb             |
++--------------------+
+6 rows in set (0.04 sec)
+
+mysql> use testdb;
+Database changed
+mysql> desc testdb;
+ERROR 1146 (42S02): Table 'testdb.testdb' doesn't exist
+mysql> select * from customers;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Bhopal    |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> desc customers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(40) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(60) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> select * from customers where salary = 2000;
++-----+--------+------+-----------+--------+
+| id  | name   | age  | address   | salary |
++-----+--------+------+-----------+--------+
+| 101 | Ramesh |   32 | Ahmedabad |   2000 |
+| 103 | Amit   |   29 | Mumbai    |   2000 |
++-----+--------+------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers where salary > 5000;
++-----+----------+------+---------+--------+
+| id  | name     | age  | address | salary |
++-----+----------+------+---------+--------+
+| 104 | Chaitali |   24 | Pune    |   6500 |
+| 105 | Hardik   |   28 | PM      |   8500 |
+| 106 | Gill     |   30 | Bhopal  |   8000 |
+| 107 | Verat    |   35 | Panjab  |   7500 |
++-----+----------+------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers where salary <> 2000;
++-----+----------+------+---------+--------+
+| id  | name     | age  | address | salary |
++-----+----------+------+---------+--------+
+| 102 | Raj      |   33 | Delhi   |   1500 |
+| 104 | Chaitali |   24 | Pune    |   6500 |
+| 105 | Hardik   |   28 | PM      |   8500 |
+| 106 | Gill     |   30 | Bhopal  |   8000 |
+| 107 | Verat    |   35 | Panjab  |   7500 |
++-----+----------+------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customers where salary >= 6500;
++-----+----------+------+---------+--------+
+| id  | name     | age  | address | salary |
++-----+----------+------+---------+--------+
+| 104 | Chaitali |   24 | Pune    |   6500 |
+| 105 | Hardik   |   28 | PM      |   8500 |
+| 106 | Gill     |   30 | Bhopal  |   8000 |
+| 107 | Verat    |   35 | Panjab  |   7500 |
++-----+----------+------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customers;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Bhopal    |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers age >= 25 and salary >= 6500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>= 25 and salary >= 6500' at line 1
+mysql> select * from customers where age >= 25 and salary >= 6500;
++-----+--------+------+---------+--------+
+| id  | name   | age  | address | salary |
++-----+--------+------+---------+--------+
+| 105 | Hardik |   28 | PM      |   8500 |
+| 106 | Gill   |   30 | Bhopal  |   8000 |
+| 107 | Verat  |   35 | Panjab  |   7500 |
++-----+--------+------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customers where age is not null;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Bhopal    |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where name like "as%";
+Empty set (0.00 sec)
+
+mysql> select * from customers where name like "ra%";
++-----+--------+------+-----------+--------+
+| id  | name   | age  | address   | salary |
++-----+--------+------+-----------+--------+
+| 101 | Ramesh |   32 | Ahmedabad |   2000 |
+| 102 | Raj    |   33 | Delhi     |   1500 |
++-----+--------+------+-----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customers where age in (25,29);
++-----+------+------+---------+--------+
+| id  | name | age  | address | salary |
++-----+------+------+---------+--------+
+| 103 | Amit |   29 | Mumbai  |   2000 |
++-----+------+------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select age from customers where exists (select age from customers where salary > 6500);
++------+
+| age  |
++------+
+|   32 |
+|   33 |
+|   29 |
+|   24 |
+|   28 |
+|   30 |
+|   35 |
++------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers where exists (select age from customers where salary > 6500);
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Bhopal    |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Bhopal    |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2025-09-11 09:24:35 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> desc customers;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(40) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| address | varchar(60) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select id,name,salary from customers;
++-----+----------+--------+
+| id  | name     | salary |
++-----+----------+--------+
+| 101 | Ramesh   |   2000 |
+| 102 | Raj      |   1500 |
+| 103 | Amit     |   2000 |
+| 104 | Chaitali |   6500 |
+| 105 | Hardik   |   8500 |
+| 106 | Gill     |   8000 |
+| 107 | Verat    |   7500 |
++-----+----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> update customers set address = 'Pune' where id = 106;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Pune      |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select max(salary) from customers;
++-------------+
+| max(salary) |
++-------------+
+|        8500 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from customers;
++-------------+
+| min(salary) |
++-------------+
+|        1500 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customers order by salary;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
+| 106 | Gill     |   30 | Pune      |   8000 |
+| 105 | Hardik   |   28 | PM        |   8500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers order by salary desc;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Pune      |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select * from customers;
++-----+----------+------+-----------+--------+
+| id  | name     | age  | address   | salary |
++-----+----------+------+-----------+--------+
+| 101 | Ramesh   |   32 | Ahmedabad |   2000 |
+| 102 | Raj      |   33 | Delhi     |   1500 |
+| 103 | Amit     |   29 | Mumbai    |   2000 |
+| 104 | Chaitali |   24 | Pune      |   6500 |
+| 105 | Hardik   |   28 | PM        |   8500 |
+| 106 | Gill     |   30 | Pune      |   8000 |
+| 107 | Verat    |   35 | Panjab    |   7500 |
++-----+----------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql>
